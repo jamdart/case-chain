@@ -98,7 +98,7 @@ export default function GetEvidences() {
           </Button>
         </div>
         {evidences.map((item, index) => (
-          <Card className="mt-4 w-[450px]">
+          <Card className="mt-4 w-[450px]" key={index}>
             <CardHeader className="pb-0 pt-2 px-4 flex-col items-center">
               <Image
                 alt="Card background"
