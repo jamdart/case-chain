@@ -3,27 +3,54 @@ import { title, subtitle } from "@/components/primitives";
 import RegisterCase from "./register-case/page";
 import SubmitEvidence from "./submit-evidence/page";
 import GetEvidences from "./evidences/page";
-
+import { Link } from "@nextui-org/react";
+import { button as buttonStyles } from "@nextui-org/theme";
 
 export default function Home() {
-
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block max-w-lg text-center justify-center">
-        <h1 className={title()}>Make&nbsp;</h1>
-        <h1 className={title({ color: "violet" })}>beautiful&nbsp;</h1>
+        <h1 className={title()}>Blockchain for&nbsp;</h1>
+        <h1 className={title({ color: "cyan" })}>Justice.&nbsp;</h1>
         <br />
-        <h1 className={title()}>
-          websites regardless of your design experience.
-        </h1>
+
         <h2 className={subtitle({ class: "mt-4" })}>
-          Beautiful, fast and modern React UI library.
+          A blockchain-based evidence management system to prevent manipulation
+          in courts.
         </h2>
       </div>
-
-      <RegisterCase/>
-      <SubmitEvidence/>
-      <GetEvidences/>
+      <div className="flex gap-3">
+        <Link
+          href="/register-case"
+          className={buttonStyles({
+            color: "primary",
+            radius: "full",
+            variant: "shadow",
+          })}
+        >
+          Register Case
+        </Link>
+        <Link
+          href="/submit-evidence"
+          className={buttonStyles({
+            color: "primary",
+            radius: "full",
+            variant: "shadow",
+          })}
+        >
+          Submit Evidence
+        </Link>
+        <Link
+          href="/evidences"
+          className={buttonStyles({
+            color: "primary",
+            radius: "full",
+            variant: "shadow",
+          })}
+        >
+          Get Evidences
+        </Link>
+      </div>
     </section>
   );
 }

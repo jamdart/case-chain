@@ -1,3 +1,4 @@
+"use client";
 import { Input, Textarea, Button } from "@nextui-org/react";
 import { useRef, useState } from "react";
 import { CONTRACT_ADDRESS } from "@/const/value";
