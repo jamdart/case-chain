@@ -12,8 +12,8 @@ export default function SubmitEvidence() {
   const caseId = useRef<any>();
   const evidenceDescription = useRef<any>();
   const startDate = useRef<any>();
- const [file, setFile] = useState<any>();
- 
+  const [file, setFile] = useState<any>();
+
   const handleAddEvidence = async () => {
     //@ts-ignore
     const provider = new ethers.providers.Web3Provider(
@@ -26,12 +26,12 @@ export default function SubmitEvidence() {
     console.log({ signer });
     console.log({ contract });
     try {
-          let fileUrl;
-          if (file) {
-            fileUrl = await storeFiles(file);
-            fileUrl = fileUrl + `/${file[0].name}`;
-            console.log({ fileUrl });
-          }
+      let fileUrl;
+      if (file) {
+        fileUrl = await storeFiles(file);
+        fileUrl = fileUrl + `/${file[0].name}`;
+        console.log({ fileUrl });
+      }
 
       const txDetails = await contract
         .connect(signer)
@@ -83,10 +83,10 @@ export default function SubmitEvidence() {
           />
           <Input
             className="w-[450px] upload-evidence"
+            size="lg"
             ref={file}
             type="file"
             onChange={(e: any) => setFile(e.target.files)}
-         
           />
 
           <Button color="primary" onClick={handleAddEvidence}>

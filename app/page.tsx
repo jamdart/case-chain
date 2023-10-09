@@ -2,6 +2,7 @@
 import { title, subtitle } from "@/components/primitives";
 import RegisterCase from "./register-case/page";
 import SubmitEvidence from "./submit-evidence/page";
+import GetEvidences from "./evidences/page";
 
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
 
       <RegisterCase/>
       <SubmitEvidence/>
+      <GetEvidences/>
     </section>
   );
 }
