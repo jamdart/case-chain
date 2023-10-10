@@ -1,6 +1,6 @@
 "use client";
 import { Input, Textarea, Button } from "@nextui-org/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { CONTRACT_ADDRESS } from "@/const/value";
 import { abi } from "@/const/contract-abi";
 import { ethers } from "ethers";
@@ -10,10 +10,13 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RegisterCase() {
   const courtId = useRef<any>();
+  const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false);
+
   const caseDescription = useRef<any>();
   const startDate = useRef<any>();
 
   const handleAddCase = async () => {
+    setIsButtonLoading(true);
     //@ts-ignore
     const provider = new ethers.providers.Web3Provider(
       //@ts-ignore
@@ -32,12 +35,16 @@ export default function RegisterCase() {
           courtId.current.value,
           caseDescription.current.value,
           startDate.current.value
-        );
+        )
+        .then(async (res: any) => {
+          await res.wait();
+          alert("Case registered with Case ID " + (totalCases.toNumber() + 1));
+        });
       console.log(txDetails);
-      alert("Case registered with Case ID " + (totalCases.toNumber() + 1));
     } catch (err: any) {
       console.log(err);
     } finally {
+      setIsButtonLoading(false);
     }
   };
   return (
@@ -68,13 +75,17 @@ export default function RegisterCase() {
             className="w-[450px]"
             size="lg"
             type="date"
-            label="Start Date"
+            label="Case Date"
             placeholder="Enter start date of case"
             ref={startDate}
             isRequired
           />
 
-          <Button color="primary" onClick={handleAddCase}>
+          <Button
+            color="primary"
+            isLoading={isButtonLoading}
+            onClick={handleAddCase}
+          >
             Register
           </Button>
         </div>

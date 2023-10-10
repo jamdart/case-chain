@@ -20,9 +20,12 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function GetEvidences() {
   const caseId = useRef<any>();
+  const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false);
+
   const [amount, setAmount] = useState<string>("");
   const [evidences, setEvidences] = useState<any[]>([]);
   const handleGetEvidences = async () => {
+    setIsButtonLoading(true);
     //@ts-ignore
     const provider = new ethers.providers.Web3Provider(
       //@ts-ignore
@@ -49,6 +52,7 @@ export default function GetEvidences() {
     } catch (err: any) {
       console.log(err);
     } finally {
+        setIsButtonLoading(false);
     }
   };
 
@@ -93,7 +97,11 @@ export default function GetEvidences() {
             isRequired
           />
 
-          <Button color="primary" onClick={handleGetEvidences}>
+          <Button
+            color="primary"
+            isLoading={isButtonLoading}
+            onClick={handleGetEvidences}
+          >
             Fetch Evidences
           </Button>
         </div>

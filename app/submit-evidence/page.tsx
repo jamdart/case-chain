@@ -10,12 +10,15 @@ import { storeFiles } from "@/utils/uploadFile";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function SubmitEvidence() {
+  const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false);
+
   const caseId = useRef<any>();
   const evidenceDescription = useRef<any>();
   const startDate = useRef<any>();
   const [file, setFile] = useState<any>();
 
   const handleAddEvidence = async () => {
+    setIsButtonLoading(true);
     //@ts-ignore
     const provider = new ethers.providers.Web3Provider(
       //@ts-ignore
@@ -41,12 +44,15 @@ export default function SubmitEvidence() {
           evidenceDescription.current.value,
           fileUrl,
           startDate.current.value
-        );
-      console.log(txDetails);
-      alert("Evidence Uploaded");
+        )
+        .then(async (res: any) => {
+          await res.wait();
+          alert("Evidence uploaded successfully");
+        });
     } catch (err: any) {
       console.log(err);
     } finally {
+      setIsButtonLoading(false);
     }
   };
   return (
@@ -90,7 +96,11 @@ export default function SubmitEvidence() {
             onChange={(e: any) => setFile(e.target.files)}
           />
 
-          <Button color="primary" onClick={handleAddEvidence}>
+          <Button
+            color="primary"
+            isLoading={isButtonLoading}
+            onClick={handleAddEvidence}
+          >
             Submit
           </Button>
         </div>
