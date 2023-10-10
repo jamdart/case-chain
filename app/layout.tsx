@@ -11,13 +11,13 @@ import "@rainbow-me/rainbowkit/styles.css";
 
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import {  polygonMumbai } from "wagmi/chains";
+import { polygonMumbai } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { title } from "@/components/primitives";
 
 const { chains, publicClient } = configureChains(
-  [ polygonMumbai],
+  [polygonMumbai],
   [
     alchemyProvider({ apiKey: process.env.ALCHEMY_ID as string }),
     publicProvider(),
@@ -57,12 +57,6 @@ export default function RootLayout({
             >
               <div className="relative flex flex-col h-screen">
                 <Navbar />
-                <div className="flex items-center justify-center">
-
-                <h1 className={title({ color: "cyan" })}>
-                  CASE CHAIN
-                </h1>
-                </div>
 
                 <main className="container mx-auto max-w-7xl px-6 flex-grow">
                   {children}
