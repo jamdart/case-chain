@@ -94,6 +94,70 @@ export const abi = [
   {
     inputs: [
       {
+        internalType: "string",
+        name: "_courtId",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_caseDescription",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_startDateTime",
+        type: "string",
+      },
+    ],
+    name: "registerCase",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_caseId",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_description",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_fileHash",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_createdDateTime",
+        type: "string",
+      },
+    ],
+    name: "registerEvidence",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address payable",
+        name: "user",
+        type: "address",
+      },
+    ],
+    name: "tipEvidenceOwner",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "",
         type: "uint256",
@@ -219,70 +283,6 @@ export const abi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_courtId",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_caseDescription",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_startDateTime",
-        type: "string",
-      },
-    ],
-    name: "registerCase",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_caseId",
-        type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "_description",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_fileHash",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_createdDateTime",
-        type: "string",
-      },
-    ],
-    name: "registerEvidence",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address payable",
-        name: "user",
-        type: "address",
-      },
-    ],
-    name: "tipEvidenceOwner",
-    outputs: [],
-    stateMutability: "payable",
     type: "function",
   },
   {

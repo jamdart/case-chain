@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-	name: "secureX",
+	name: "Case Chain",
 	description: "Blockchain for Justice",
 	
 
