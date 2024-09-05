@@ -8,33 +8,52 @@ import { Navbar } from "@/components/navbar";
 import { Link } from "@nextui-org/link";
 import clsx from "clsx";
 import "@rainbow-me/rainbowkit/styles.css";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { createClient, http } from 'viem';
+import { getDefaultConfig, Chain, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { createConfig, fallback, useReconnect, WagmiProvider } from "wagmi";
+import { polygon, sepolia } from "wagmi/chains";
 
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { polygonMumbai } from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
-import { publicProvider } from "wagmi/providers/public";
 import { title } from "@/components/primitives";
+import { useEffect } from "react";
 
-const { chains, publicClient } = configureChains(
-  [polygonMumbai],
-  [
-    alchemyProvider({ apiKey: process.env.ALCHEMY_ID as string }),
-    publicProvider(),
-  ]
-);
 
-const { connectors } = getDefaultWallets({
-  appName: "My RainbowKit App",
+
+//const { connectors } = getDefaultWallets({
+//  appName: "My RainbowKit App",
+//  projectId: "fbd0254e05f3184a5a70e0f44d0cad19",
+
+//});
+
+const config = getDefaultConfig({
+  appName: 'RainbowKit demo',
   projectId: "fbd0254e05f3184a5a70e0f44d0cad19",
-  chains,
-});
+  chains: [polygon, sepolia],
+  transports: {
+    [polygon.id]: http(),
+    [sepolia.id]: http()
+  },
+})
 
 const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient,
+  
+  chains: [polygon, sepolia],
+  transports: { 
+    [polygon.id]: fallback([ 
+      http('https://...'), 
+      http('https://...'), 
+    ]), 
+    [sepolia.id]: http('https://...'), 
+  }, 
 });
+
+function App() {
+  const { reconnect } = useReconnect()
+
+  useEffect(() => {
+    reconnect()
+  }, [])
+}
 
 export default function RootLayout({
   children,
@@ -50,8 +69,8 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <WagmiConfig config={wagmiConfig}>
-          <RainbowKitProvider chains={chains}>
+        <WagmiProvider config={wagmiConfig}>
+          <RainbowKitProvider>
             <Providers
               themeProps={{ attribute: "class", defaultTheme: "dark" }}
             >
@@ -64,7 +83,7 @@ export default function RootLayout({
               </div>
             </Providers>
           </RainbowKitProvider>
-        </WagmiConfig>
+        </WagmiProvider>
       </body>
     </html>
   );
